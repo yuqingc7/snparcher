@@ -105,6 +105,7 @@ if LONG_CONTIG_MODE:
                 --java-options '-Xmx{resources.mem_mb_reduced}m' \
                 -R {input.ref} \
                 --heterozygosity {params.het_prior} \
+                -all-sites \
                 --genomicsdb-shared-posixfs-optimizations true \
                 -V gendb://"$EXTRACT_DIR/{params.db_rel}" \
                 -O {output.vcf} \
@@ -161,6 +162,7 @@ else:
                 --java-options '-Xmx{resources.mem_mb_reduced}m' \
                 -R {input.ref} \
                 --heterozygosity {params.het_prior} \
+                -all-sites \
                 --genomicsdb-shared-posixfs-optimizations true \
                 -V gendb://"$EXTRACT_DIR/{params.db_rel}" \
                 -O {output.vcf} \

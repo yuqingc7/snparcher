@@ -216,6 +216,7 @@ rule gatk_genomics_db_import:
 rule gatk_genotype_gvcfs:
     input:
         db="results/gatk_genomics_db/L{interval}.tar",
+        interval="results/intervals/db/{interval}-scattered.interval_list",
         **REF_FILES,
     output:
         vcf=temp("results/vcfs/intervals/L{interval}.vcf.gz"),
@@ -238,7 +239,9 @@ rule gatk_genotype_gvcfs:
             --java-options '-Xmx{resources.mem_mb_reduced}m' \
             -R {input.ref} \
             --heterozygosity {params.het_prior} \
+            -all-sites \
             --genomicsdb-shared-posixfs-optimizations true \
+            -L {input.interval} \
             -V gendb://"$EXTRACT_DIR/{params.db_rel}" \
             -O {output.vcf} \
             --tmp-dir {resources.tmpdir} \
